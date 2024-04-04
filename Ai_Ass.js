@@ -178,7 +178,7 @@ async function speakThis(message) {
         window.open(`https://www.google.com/search?q=${message.replace(" ", "+")}`, "_blank");
         const finalText = "I found some information for " + message + " on google";
         speech.text = finalText;
-    } */
+    }
 else {
     try {
         const response = await getGoogleAIResponse(message);
@@ -186,7 +186,7 @@ else {
     } catch (error) {
         console.error('Error fetching Google AI response:', error);
     }
- }
+ } */
 
     speech.volume = 1;
     speech.pitch = 1;
