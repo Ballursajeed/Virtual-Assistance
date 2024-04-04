@@ -174,11 +174,12 @@ async function speakThis(message) {
         speech.text = finalText;
     }
 
- /*   else {
+   else {
         window.open(`https://www.google.com/search?q=${message.replace(" ", "+")}`, "_blank");
         const finalText = "I found some information for " + message + " on google";
         speech.text = finalText;
     }
+    /*
 else {
     try {
         const response = await getGoogleAIResponse(message);
