@@ -57,23 +57,36 @@ if (SpeechRecognition) {
 }
 
 
- async function getGoogleAIResponse(userInput) {
-    const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyB6m5YN2v0BVUqFHiKsmGWJbOOVkPl3PfM', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            contents: [{
-                parts: [{
-                    text: userInput
+async function getGoogleAIResponse(userInput) {
+    try {
+        const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyB6m5YN2v0BVUqFHiKsmGWJbOOVkPl3PfM', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                contents: [{
+                    parts: [{
+                        text: userInput
+                    }]
                 }]
-            }]
-        })
-    });
+            })
+        });
 
-    const data = await response.json();
-    return data.response.contents[0].parts[0].text;
+        const data = await response.json();
+
+        // Check if the response contains any candidates
+        if (data && data.candidates && data.candidates.length > 0) {
+            // Get the text content from the first candidate
+            const textContent = data.candidates[0].content.parts[0].text;
+            return textContent;
+        } else {
+            throw new Error('No candidates found in response from Google AI API');
+        }
+    } catch (error) {
+        console.error('Error fetching Google AI response:', error);
+        throw error; // Rethrow the error to handle it outside this function
+    }
 }
 
 
