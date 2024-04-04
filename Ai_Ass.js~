@@ -110,7 +110,7 @@ async function speakThis(message) {
     }
 
     else if(message.includes('name')) {
-        const finalText = "My name is Inertia";
+        const finalText = "My name is Inertia i am a large language model trained to tell everything about world";
         speech.text = finalText;
     }
 
