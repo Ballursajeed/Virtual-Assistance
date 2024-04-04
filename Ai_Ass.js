@@ -51,6 +51,49 @@ btn.addEventListener('click', ()=>{
     recognition.start();
 })
 
+ async function getGoogleAIResponse(userInput) {
+    try {
+        const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyB6m5YN2v0BVUqFHiKsmGWJbOOVkPl3PfM', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                contents: [{
+                    parts: [{
+                        text: userInput
+                    }]
+                }]
+            })
+        });
+
+        const data = await response.json();
+
+        // Check if the response contains any candidates
+        if (data && data.candidates && data.candidates.length > 0) {
+            // Get the text content from the first candidate
+            const textContent = data.candidates[0].content.parts[0].text;
+            return textContent;
+        } else {
+            throw new Error('No candidates found in response from Google AI API');
+        }
+    } catch (error) {
+        console.error('Error fetching Google AI response:', error);
+        throw error; // Rethrow the error to handle it outside this function
+    }
+}
+
+
+ async function speakGoogleAIResponse(userInput) {
+    try {
+        const response = await getGoogleAIResponse(userInput);
+        return response;
+    } catch (error) {
+        console.error('Error fetching Google AI response:', error);
+    }
+}
+
+
 function speakThis(message) {
     const speech = new SpeechSynthesisUtterance();
 
@@ -114,14 +157,22 @@ function speakThis(message) {
     }
 
     else {
-        window.open(`https://www.google.com/search?q=${message.replace(" ", "+")}`, "_blank");
+        /*window.open(`https://www.google.com/search?q=${message.replace(" ", "+")}`, "_blank");
         const finalText = "I found some information for " + message + " on google";
-        speech.text = finalText;
+        speech.text = finalText; */
+     try {
+      const response = await getGoogleAIResponse(message);
+      speech.text = response;
+     } catch (error) {
+        console.error('Error fetching Google AI response:', error);
+      }
     }
 
     speech.volume = 1;
     speech.pitch = 1;
     speech.rate = 1;
 
+    console.log(speech);
     window.speechSynthesis.speak(speech);
+
 }
