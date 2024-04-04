@@ -179,13 +179,14 @@ async function speakThis(message) {
         const finalText = "I found some information for " + message + " on google";
         speech.text = finalText;
     } */
-
+else {
     try {
         const response = await getGoogleAIResponse(message);
         speech.text = response;
     } catch (error) {
         console.error('Error fetching Google AI response:', error);
     }
+ }
 
     speech.volume = 1;
     speech.pitch = 1;

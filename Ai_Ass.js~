@@ -122,23 +122,23 @@ async function speakThis(message) {
         speech.text = finalText;
     }
 
-     if(message.includes('open google') || message.include('open the google')) {
+     if(message.includes('open google') || message.includes('open the google')) {
         window.open("https://google.com", "_blank");
         const finalText = "Opening Google";
         speech.text = finalText;
     }
 
-    else if(message.includes('open instagram') || message.include('open the instagram')) {
+    else if(message.includes('open instagram') || message.includes('open the instagram')) {
         window.open("https://instagram.com", "_blank");
         const finalText = "Opening instagram";
         speech.text = finalText;
     }
-    else if(message.includes('open whatsapp') || message.include('open the whatsapp')) {
+    else if(message.includes('open whatsapp') || message.includes('open the whatsapp')) {
         window.open("https://web.whatsapp.com/", "_blank");
         const finalText = "Opening whatsapp";
         speech.text = finalText;
     }
-       else if(message.includes('open facebook') || message.include('open the facebook')) {
+       else if(message.includes('open facebook') || message.includes('open the facebook')) {
         window.open("https://facebook.com/", "_blank");
         const finalText = "Opening facebook";
         speech.text = finalText;
