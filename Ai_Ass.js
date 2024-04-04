@@ -1,5 +1,6 @@
 const btn = document.querySelector('.talk');
 const content = document.querySelector('.content');
+let isSpeaking = false;
 
 function speak(sentence) {
     const text_speak = new SpeechSynthesisUtterance(sentence);
@@ -8,6 +9,7 @@ function speak(sentence) {
     text_speak.pitch = 1;
 
     window.speechSynthesis.speak(text_speak);
+    isSpeaking = true; // Update flag when speech synthesis starts
 }
 
 function wishMe() {
@@ -93,11 +95,20 @@ btn.addEventListener('click', ()=>{
     }
 }
 
+ // Function to stop speech synthesis
+function stopSpeaking() {
+    window.speechSynthesis.cancel();
+    isSpeaking = false; // Update flag when speech synthesis stops
+}
 
 async function speakThis(message) {
     const speech = new SpeechSynthesisUtterance();
 
     speech.text = "I did not understand what you said please try again";
+
+    if (message.includes('stop') || message.includes('stops') || message.inludes('ok stop') || message.includes('stop speaking')) {
+         stopSpeaking();
+    }
 
     if(message.includes('hey') || message.includes('hello')) {
         const finalText = "Hello Boss";

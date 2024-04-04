@@ -1,5 +1,6 @@
 const btn = document.querySelector('.talk');
 const content = document.querySelector('.content');
+let isSpeaking = false;
 
 function speak(sentence) {
     const text_speak = new SpeechSynthesisUtterance(sentence);
@@ -8,6 +9,7 @@ function speak(sentence) {
     text_speak.pitch = 1;
 
     window.speechSynthesis.speak(text_speak);
+    isSpeaking = true; // Update flag when speech synthesis starts
 }
 
 function wishMe() {
@@ -93,9 +95,18 @@ btn.addEventListener('click', ()=>{
     }
 }
 
+ // Function to stop speech synthesis
+function stopSpeaking() {
+    window.speechSynthesis.cancel();
+    isSpeaking = false; // Update flag when speech synthesis stops
+}
 
 async function speakThis(message) {
     const speech = new SpeechSynthesisUtterance();
+
+  if (isSpeaking === false) {
+        return;
+  }
 
     speech.text = "I did not understand what you said please try again";
 
@@ -123,12 +134,6 @@ async function speakThis(message) {
     else if(message.includes('open instagram')) {
         window.open("https://instagram.com", "_blank");
         const finalText = "Opening instagram";
-        speech.text = finalText;
-    }
-
-    else if(message.includes('what is') || message.includes('who is') || message.includes('what are')) {
-        window.open(`https://www.google.com/search?q=${message.replace(" ", "+")}`, "_blank");
-        const finalText = "This is what i found on internet regarding " + message;
         speech.text = finalText;
     }
 
