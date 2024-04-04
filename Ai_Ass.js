@@ -56,11 +56,41 @@ if (SpeechRecognition) {
     console.log("SpeechRecognition API is not supported in this browser.");
 }
 
+
+ async function getGoogleAIResponse(userInput) {
+    const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=YOUR_API_KEY', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            contents: [{
+                parts: [{
+                    text: userInput
+                }]
+            }]
+        })
+    });
+
+    const data = await response.json();
+    return data.response.contents[0].parts[0].text;
+}
+
+function speakGoogleAIResponse(userInput) {
+    getGoogleAIResponse(userInput)
+        .then(response => speak(response))
+        .catch(error => console.error('Error fetching Google AI response:', error));
+}
+
+
 function speakThis(message) {
     const speech = new SpeechSynthesisUtterance();
 
     speech.text = "I did not understand what you said please try again";
 
+   speakGoogleAIResponse(message);
+
+ /*
     if(message.includes('hey') || message.includes('hello')) {
         const finalText = "Hello Boss";
         speech.text = finalText;
@@ -75,8 +105,8 @@ function speakThis(message) {
         const finalText = "My name is Inert";
         speech.text = finalText;
     }
-
-    else if(message.includes('open google')) {
+     */
+     if(message.includes('open google')) {
         window.open("https://google.com", "_blank");
         const finalText = "Opening Google";
         speech.text = finalText;

@@ -92,6 +92,11 @@ function speakThis(message) {
         const finalText = "Opening whatsapp";
         speech.text = finalText;
     }
+       else if(message.includes('open facebook')) {
+        window.open("https://facebook.com/", "_blank");
+        const finalText = "Opening facebook";
+        speech.text = finalText;
+    }
 
     else if(message.includes('what is') || message.includes('who is') || message.includes('what are')) {
         window.open(`https://www.google.com/search?q=${message.replace(" ", "+")}`, "_blank");
