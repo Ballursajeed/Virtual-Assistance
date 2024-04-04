@@ -57,23 +57,36 @@ if (SpeechRecognition) {
 }
 
 
- async function getGoogleAIResponse(userInput) {
-    const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyB6m5YN2v0BVUqFHiKsmGWJbOOVkPl3PfM', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            contents: [{
-                parts: [{
-                    text: userInput
+async function getGoogleAIResponse(userInput) {
+    try {
+        const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyB6m5YN2v0BVUqFHiKsmGWJbOOVkPl3PfM', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                contents: [{
+                    parts: [{
+                        text: userInput
+                    }]
                 }]
-            }]
-        })
-    });
+            })
+        });
 
-    const data = await response.json();
-    return data.response.contents[0].parts[0].text;
+        const data = await response.json();
+
+        // Check if the response contains any candidates
+        if (data && data.candidates && data.candidates.length > 0) {
+            // Get the text content from the first candidate
+            const textContent = data.candidates[0].content.parts[0].text;
+            return textContent;
+        } else {
+            throw new Error('No candidates found in response from Google AI API');
+        }
+    } catch (error) {
+        console.error('Error fetching Google AI response:', error);
+        throw error; // Rethrow the error to handle it outside this function
+    }
 }
 
 
@@ -93,14 +106,7 @@ async function speakThis(message) {
 
     speech.text = "I did not understand what you said please try again";
 
-     try {
-        const response = await getGoogleAIResponse(message);
-        speech.text = response;
-    } catch (error) {
-        console.error('Error fetching Google AI response:', error);
-    }
 
- /*
     if(message.includes('hey') || message.includes('hello')) {
         const finalText = "Hello Boss";
         speech.text = finalText;
@@ -112,27 +118,27 @@ async function speakThis(message) {
     }
 
     else if(message.includes('name')) {
-        const finalText = "My name is Inert";
+        const finalText = "My name is Inertia i am a large language model trained to tell everything about world";
         speech.text = finalText;
     }
 
-     if(message.includes('open google')) {
+     if(message.includes('open google') || message.include('open the google')) {
         window.open("https://google.com", "_blank");
         const finalText = "Opening Google";
         speech.text = finalText;
     }
 
-    else if(message.includes('open instagram')) {
+    else if(message.includes('open instagram') || message.include('open the instagram')) {
         window.open("https://instagram.com", "_blank");
         const finalText = "Opening instagram";
         speech.text = finalText;
     }
-    else if(message.includes('open whatsapp')) {
+    else if(message.includes('open whatsapp') || message.include('open the whatsapp')) {
         window.open("https://web.whatsapp.com/", "_blank");
         const finalText = "Opening whatsapp";
         speech.text = finalText;
     }
-       else if(message.includes('open facebook')) {
+       else if(message.includes('open facebook') || message.include('open the facebook')) {
         window.open("https://facebook.com/", "_blank");
         const finalText = "Opening facebook";
         speech.text = finalText;
@@ -163,17 +169,24 @@ async function speakThis(message) {
     }
 
     else if(message.includes('calculator')) {
-        window.open('Calculator:///')
+        window.open('https://www.calculator.net/', "_blank");
         const finalText = "Opening Calculator";
         speech.text = finalText;
     }
 
-    else {
+ /*   else {
         window.open(`https://www.google.com/search?q=${message.replace(" ", "+")}`, "_blank");
         const finalText = "I found some information for " + message + " on google";
         speech.text = finalText;
+    } */
+
+    try {
+        const response = await getGoogleAIResponse(message);
+        speech.text = response;
+    } catch (error) {
+        console.error('Error fetching Google AI response:', error);
     }
-*/
+
     speech.volume = 1;
     speech.pitch = 1;
     speech.rate = 1;

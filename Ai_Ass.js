@@ -106,14 +106,7 @@ async function speakThis(message) {
 
     speech.text = "I did not understand what you said please try again";
 
-     try {
-        const response = await getGoogleAIResponse(message);
-        speech.text = response;
-    } catch (error) {
-        console.error('Error fetching Google AI response:', error);
-    }
 
- /*
     if(message.includes('hey') || message.includes('hello')) {
         const finalText = "Hello Boss";
         speech.text = finalText;
@@ -125,27 +118,27 @@ async function speakThis(message) {
     }
 
     else if(message.includes('name')) {
-        const finalText = "My name is Inert";
+        const finalText = "My name is Inertia i am a large language model trained to tell everything about world";
         speech.text = finalText;
     }
 
-     if(message.includes('open google')) {
+     if(message.includes('open google') || message.includes('open the google')) {
         window.open("https://google.com", "_blank");
         const finalText = "Opening Google";
         speech.text = finalText;
     }
 
-    else if(message.includes('open instagram')) {
+    else if(message.includes('open instagram') || message.includes('open the instagram')) {
         window.open("https://instagram.com", "_blank");
         const finalText = "Opening instagram";
         speech.text = finalText;
     }
-    else if(message.includes('open whatsapp')) {
+    else if(message.includes('open whatsapp') || message.includes('open the whatsapp')) {
         window.open("https://web.whatsapp.com/", "_blank");
         const finalText = "Opening whatsapp";
         speech.text = finalText;
     }
-       else if(message.includes('open facebook')) {
+       else if(message.includes('open facebook') || message.includes('open the facebook')) {
         window.open("https://facebook.com/", "_blank");
         const finalText = "Opening facebook";
         speech.text = finalText;
@@ -176,17 +169,24 @@ async function speakThis(message) {
     }
 
     else if(message.includes('calculator')) {
-        window.open('Calculator:///')
+        window.open('https://www.calculator.net/', "_blank");
         const finalText = "Opening Calculator";
         speech.text = finalText;
     }
 
-    else {
+ /*   else {
         window.open(`https://www.google.com/search?q=${message.replace(" ", "+")}`, "_blank");
         const finalText = "I found some information for " + message + " on google";
         speech.text = finalText;
+    } */
+
+    try {
+        const response = await getGoogleAIResponse(message);
+        speech.text = response;
+    } catch (error) {
+        console.error('Error fetching Google AI response:', error);
     }
-*/
+
     speech.volume = 1;
     speech.pitch = 1;
     speech.rate = 1;
