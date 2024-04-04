@@ -76,11 +76,16 @@ if (SpeechRecognition) {
     return data.response.contents[0].parts[0].text;
 }
 
-function speakGoogleAIResponse(userInput) {
-    getGoogleAIResponse(userInput)
-        .then(response => speak(response))
-        .catch(error => console.error('Error fetching Google AI response:', error));
+
+ async function speakGoogleAIResponse(userInput) {
+    try {
+        const response = await getGoogleAIResponse(userInput);
+        speak(response);
+    } catch (error) {
+        console.error('Error fetching Google AI response:', error);
+    }
 }
+
 
 
 function speakThis(message) {
@@ -88,7 +93,12 @@ function speakThis(message) {
 
     speech.text = "I did not understand what you said please try again";
 
-    speakGoogleAIResponse(message);
+     try {
+        const response = await getGoogleAIResponse(message);
+        speech.text = response;
+    } catch (error) {
+        console.error('Error fetching Google AI response:', error);
+    }
 
  /*
     if(message.includes('hey') || message.includes('hello')) {
