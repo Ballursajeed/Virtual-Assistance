@@ -93,7 +93,6 @@ function speakThis(message) {
 
     speech.text = "I did not understand what you said please try again";
 
-    speakGoogleAIResponse(message);
      try {
         const response = await getGoogleAIResponse(message);
         speech.text = response;

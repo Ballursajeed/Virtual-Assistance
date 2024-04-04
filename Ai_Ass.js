@@ -80,7 +80,7 @@ if (SpeechRecognition) {
  async function speakGoogleAIResponse(userInput) {
     try {
         const response = await getGoogleAIResponse(userInput);
-        speak(response);
+        return response;
     } catch (error) {
         console.error('Error fetching Google AI response:', error);
     }
@@ -88,7 +88,7 @@ if (SpeechRecognition) {
 
 
 
-function speakThis(message) {
+async function speakThis(message) {
     const speech = new SpeechSynthesisUtterance();
 
     speech.text = "I did not understand what you said please try again";
