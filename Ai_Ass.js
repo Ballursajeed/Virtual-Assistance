@@ -94,7 +94,7 @@ btn.addEventListener('click', ()=>{
 }
 
 
-function speakThis(message) {
+async function speakThis(message) {
     const speech = new SpeechSynthesisUtterance();
 
     speech.text = "I did not understand what you said please try again";
