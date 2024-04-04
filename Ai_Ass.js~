@@ -106,7 +106,7 @@ async function speakThis(message) {
 
     speech.text = "I did not understand what you said please try again";
 
-    if (message.includes('stop') || message.includes('stops') || message.inludes('ok stop') || message.includes('stop speaking')) {
+    if (message.includes('stop') || message.includes('stops') || message.includes('ok stop') || message.includes('stop speaking')) {
          stopSpeaking();
     }
 
