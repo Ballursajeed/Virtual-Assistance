@@ -177,9 +177,9 @@ async function speakThis(message) {
  speech.pitch = 0.8; // Adjust pitch for a more robotic voice
     speech.rate = 0.9; // Adjust rate for a slower, more deliberate speech
 
-    // Specify a male voice for the assistant
-    const voices = window.speechSynthesis.getVoices();
-     const maleVoice = voices.find(voice => voice.lang.includes('en') && voice.name.includes('Male'));
+      const voices = window.speechSynthesis.getVoices();
+    // Find a male voice by name
+    const maleVoice = voices.find(voice => voice.name === 'Google UK English Male');
     if (maleVoice) {
         speech.voice = maleVoice;
     }

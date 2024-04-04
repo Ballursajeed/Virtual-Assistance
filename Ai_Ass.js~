@@ -179,7 +179,7 @@ async function speakThis(message) {
 
     // Specify a male voice for the assistant
     const voices = window.speechSynthesis.getVoices();
-    const maleVoice = voices.find(voice => voice.name === 'Microsoft David Desktop - English (United States)'); // Adjust voice based on available voices
+     const maleVoice = voices.find(voice => voice.lang.includes('en') && voice.name.includes('Male'));
     if (maleVoice) {
         speech.voice = maleVoice;
     }
