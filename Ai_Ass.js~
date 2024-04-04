@@ -174,8 +174,15 @@ async function speakThis(message) {
     }
 
    speech.volume = 1;
-    speech.pitch = 0.8; // Adjust pitch for a more robotic voice
-    speech.rate = 1;
+ speech.pitch = 0.8; // Adjust pitch for a more robotic voice
+    speech.rate = 0.9; // Adjust rate for a slower, more deliberate speech
+
+    // Specify a male voice for the assistant
+    const voices = window.speechSynthesis.getVoices();
+    const maleVoice = voices.find(voice => voice.name === 'Microsoft David Desktop - English (United States)'); // Adjust voice based on available voices
+    if (maleVoice) {
+        speech.voice = maleVoice;
+    }
 
     console.log(speech);
     window.speechSynthesis.speak(speech);
