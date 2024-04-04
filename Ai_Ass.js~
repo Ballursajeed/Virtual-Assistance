@@ -58,7 +58,7 @@ if (SpeechRecognition) {
 
 
  async function getGoogleAIResponse(userInput) {
-    const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=YOUR_API_KEY', {
+    const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyB6m5YN2v0BVUqFHiKsmGWJbOOVkPl3PfM', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

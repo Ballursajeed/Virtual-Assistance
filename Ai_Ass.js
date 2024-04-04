@@ -88,7 +88,7 @@ function speakThis(message) {
 
     speech.text = "I did not understand what you said please try again";
 
-   speakGoogleAIResponse(message);
+    speakGoogleAIResponse(message);
 
  /*
     if(message.includes('hey') || message.includes('hello')) {
@@ -105,7 +105,7 @@ function speakThis(message) {
         const finalText = "My name is Inert";
         speech.text = finalText;
     }
-     */
+
      if(message.includes('open google')) {
         window.open("https://google.com", "_blank");
         const finalText = "Opening Google";
@@ -163,7 +163,7 @@ function speakThis(message) {
         const finalText = "I found some information for " + message + " on google";
         speech.text = finalText;
     }
-
+*/
     speech.volume = 1;
     speech.pitch = 1;
     speech.rate = 1;
