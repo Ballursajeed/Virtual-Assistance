@@ -174,7 +174,7 @@ async function speakThis(message) {
     }
 
    speech.volume = 1;
-    speech.pitch = 0.8; // Adjust pitch for a more robotic voice
+    speech.pitch = 0.9; // Adjust pitch for a more robotic voice
     speech.rate = 0.9;
 
     console.log(speech);
